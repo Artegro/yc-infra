@@ -1,0 +1,52 @@
+stages:
+  - init
+  - validate
+  - plan
+  - apply
+
+terraform_init:
+  tags:
+  - k8s
+  stage: init
+  script:
+    - cd terraform
+    - terraform init -upgrade
+  when: always
+
+terraform_validate:
+  tags:
+  - k8s
+  stage: validate
+  script:
+    - cd terraform
+    - terraform init -upgrade
+    - terraform validate
+  when: on_success  
+  dependencies:
+    - terraform_init
+
+terraform_plan:
+  tags:
+  - k8s
+  stage: plan
+  script: 
+    - cd terraform
+    - terraform init -upgrade
+    - terraform plan
+  when: on_success
+  dependencies:
+    - terraform_validate
+   
+terraform_apply:
+  tags:
+  - k8s
+  stage: apply
+  script:
+    - ./cluster_install.sh 
+  when: on_success
+  allow_failure: false
+  only:
+    refs:
+      - main
+  dependencies:
+    - terraform_plan

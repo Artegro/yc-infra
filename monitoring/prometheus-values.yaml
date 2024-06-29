@@ -1,0 +1,23 @@
+nodeExporter:
+  tolerations:
+  - effect: "NoSchedule"
+    operator: "Exists"
+prometheus:
+  enabled: true
+
+alertmanager:
+  enabled: true
+
+grafana:
+  enabled: true
+  adminPassword: "lPa8R27IF6"
+  persistence:
+    enabled: true
+    accessModes: ["ReadWriteOnce"]
+    size: 1Gi
+
+server:
+  ingress:
+    enabled: true
+    hosts:
+      - monitor.artegro.ru
