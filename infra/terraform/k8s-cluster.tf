@@ -115,7 +115,7 @@ resource "yandex_compute_instance_group" "k8s-masters" {
     # Ресурсы, которые будут выделены для создания виртуальных машин в Instance Groups
     resources {
       cores  = 2
-      memory = 2
+      memory = 4
       core_fraction = 20 # Базовый уровень производительности vCPU. https://cloud.yandex.ru/docs/compute/concepts/performance-levels
     }
 
@@ -189,7 +189,7 @@ resource "yandex_compute_instance_group" "k8s-workers" {
     platform_id = "standard-v2"
     resources {
       cores  = 2
-      memory = 2
+      memory = 4
       core_fraction = 20
     }
 
